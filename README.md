@@ -6,6 +6,10 @@ Proyek Sistem Informasi Kegiatan untuk memenuhi Tes Akhir Semester mata kuliah P
 
 Menyediakan web service RESTful API untuk Frontend
 
+## Postman Collection
+
+* [Link Postman Collection](https://www.getpostman.com/collections/8344acadf5b847e0948e)
+
 ## Pembuat
 
 * Nama: Arif Ikhsanudin
