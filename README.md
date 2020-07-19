@@ -4,7 +4,7 @@ Proyek Sistem Informasi Kegiatan untuk memenuhi Tes Akhir Semester mata kuliah P
 
 ## Cara Kerja
 
-Menyediakan web service RESTapi untuk Frontend
+Menyediakan web service RESTful API untuk Frontend
 
 ## Pembuat
 
