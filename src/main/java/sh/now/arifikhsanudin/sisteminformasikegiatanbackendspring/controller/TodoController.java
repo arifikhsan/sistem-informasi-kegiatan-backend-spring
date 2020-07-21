@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sh.now.arifikhsanudin.sisteminformasikegiatanbackendspring.model.TodoModel;
 import sh.now.arifikhsanudin.sisteminformasikegiatanbackendspring.repository.TodoRepository;
+import sh.now.arifikhsanudin.sisteminformasikegiatanbackendspring.view.GetTodosResponse;
 import sh.now.arifikhsanudin.sisteminformasikegiatanbackendspring.view.MessageView;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping(path = "/todo")
@@ -17,8 +20,11 @@ public class TodoController {
 
     @GetMapping(path = "/all")
     @ResponseBody
-    public Iterable<TodoModel> all() {
-        return todoRepository.findAll();
+    public GetTodosResponse all() {
+        Iterable<TodoModel> todoModelIterable = todoRepository.findAll();
+        ArrayList<TodoModel> todoModelArrayList = new ArrayList<>();
+        todoModelIterable.forEach(todoModelArrayList::add);
+        return new GetTodosResponse(todoModelArrayList);
     }
 
     @PostMapping(path = "/add")
@@ -39,6 +45,16 @@ public class TodoController {
         todoRepository.findById(id).map(todoModel -> {
             todoModel.setName(newTodoModel.getName());
             todoModel.setDone(newTodoModel.getDone());
+            return todoRepository.save(todoModel);
+        });
+        return todoRepository.findById(id).orElse(new TodoModel());
+    }
+
+    @PutMapping(path = "/toggle/{id}")
+    @ResponseBody
+    public TodoModel toggle(@PathVariable Long id) {
+        todoRepository.findById(id).map(todoModel -> {
+            todoModel.setDone(!todoModel.getDone());
             return todoRepository.save(todoModel);
         });
         return todoRepository.findById(id).orElse(new TodoModel());
